@@ -1,0 +1,19 @@
+/*
+ 分页样式
+*/
+
+nav.page div span,nav.page div a{
+    display: block;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    border: 1px solid #ccc;
+    text-align: center;
+    margin-right: 10px;
+    text-decoration: none;
+    float: left;
+}
+
+nav.page div{
+    padding-left: 450px;
+}

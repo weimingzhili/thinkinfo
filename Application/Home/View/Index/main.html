@@ -1,0 +1,74 @@
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-9">
+        <div class="banner">
+          <div class="banner-left">
+
+            <!-- 轮播图开始 -->
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+              <!-- 轮播（Carousel）指标 -->
+              <ol class="carousel-indicators" >
+                <foreach name="bigPics" item="bigPic">
+                  <li data-target="#myCarousel" data-slide-to="{$key}" <eq name="key" value="0">class="active"</eq>></li>&nbsp;&nbsp;
+                </foreach>
+              </ol>
+              <!-- 轮播（Carousel）项目 -->
+              <div class="carousel-inner">
+                <foreach name="bigPics" item="bigPic">
+                  <div <eq name="key" value="0">class="item active"<else/>class="item"</eq>>
+                    <a target="_blank" href="{:U('/Home/Detail/index?id='.$bigPic['article_id'])}" title="{$bigPic['title']}">
+                      <img style="width: 670px;height: 360px;" src="{$bigPic['thumb']}" alt="{$bigPic['title']}">
+                    </a>
+                    <div class="carousel-caption">{$bigPic['title']}</div>
+                  </div>
+                </foreach>
+              </div>
+              <!-- 轮播（Carousel）导航 -->
+              <a class="carousel-control left" href="#myCarousel"
+                 data-slide="prev">&lsaquo;
+              </a>
+              <a class="carousel-control right" href="#myCarousel"
+                 data-slide="next">&rsaquo;
+              </a>
+            </div>
+            <!-- 轮播图结束 -->
+
+          <!-- 小图推荐 -->
+          </div>
+          <div class="banner-right">
+            <ul>
+              <volist name="smaPics" id="smaPic">
+                <li>
+                  <a target="_blank" href="{:U('/Home/Detail/index?id='.$smaPic['posc_id'])}" title="{$smaPic['title']}">
+                    <img style="width: 150px;height: 113px;" src="{$smaPic['thumb']}" alt="{$smaPic['title']}">
+                  </a>
+                </li>
+              </volist>
+            </ul>
+          </div>
+        </div>
+        <!-- 小图推荐结束 -->
+
+        <div class="news-list">
+          <volist name="news" id="new">
+            <dl>
+              <dt><a target="_blank" href="{:U('/Home/Detail/index?id='.$new['article_id'])}" title="{$new['title']}">{$new['title']}</a></dt>
+              <dd class="news-img">
+                <a target="_blank" href="{:U('/Home/Detail/index?id='.$new['article_id'])}" title="{$new['title']}"><img style="width: 200px;height: 120px;" src="{$new['thumb']}" alt="{$new['title']}"></a>
+              </dd>
+              <dd class="news-intro">
+                {$new['description']}
+              </dd>
+              <dd class="news-info">
+                关键词：{$new['keywords']} <span>时间：{$new['create_time']|date='n月j日G时',###}</span> <span attr-id="{$new['article_id']}" class="article-count node-{$new['article_id']}">阅读数（{$new['count']}）</span>
+              </dd>
+            </dl>
+          </volist>
+        </div>
+      </div>
+
+      <!-- 侧栏 -->
+      <include file="sidebar" />
+
+    </div>
+  </div>

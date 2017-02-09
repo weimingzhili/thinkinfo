@@ -1,0 +1,17 @@
+<header id="header">
+  <div class="navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <a href="/">
+          <img src="/Public/images/logo.png" alt="{$config['title']}">
+        </a>
+      </div>
+      <ul class="nav navbar-nav navbar-left">
+        <li><a href="/" {:showStyle('Index')}>首页</a></li>
+        <volist name="navs" id="nav" >
+          <li><a href="{:U('/Home/Cat/index?id='.$nav['menu_id'])}"{:showStyle(array('id'=>$nav['menu_id'],'getId'=>$_GET['id']))}>{$nav['name']}</a></li>
+        </volist>
+      </ul>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>{$message}</title>
+  <link rel="stylesheet" href="/Public/css/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="/Public/css/home/main.css" type="text/css" />
+  <script src="/Public/js/jquery.js"></script>
+  <script src="/Public/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <section>
+    <div class="container" style="width: 400px;margin: 100px auto;text-align: center;">
+      <h1 style="color: red;">{$message}</h1>
+      <h3 id="location">将在<span style="color: red;">3</span>秒后自动跳转到首页</h3>
+    </div>
+  </section>
+  <script>
+    var time = 3;
+    setInterval("refer()",1000);
+    function refer() {
+      time--;
+
+      if(time != 0) {
+        $("#location span").html(time);
+
+      }
+      if(time == 0) {
+        $("#location").html("正在为您跳转到首页……");
+        window.location.href = "/Home/Index/index";
+      }
+    }
+  </script>
+</body>
+</html>

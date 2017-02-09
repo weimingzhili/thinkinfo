@@ -1,0 +1,73 @@
+<include file="Index/header" />
+<body>
+<div id="wrapper">
+
+    <include file="Index/nav"/>
+<div id="page-wrapper">
+
+	<div class="container-fluid">
+
+		<!-- Page Heading -->
+		<div class="row">
+			<div class="col-lg-12">
+
+				<ol class="breadcrumb">
+					<li>
+						<i class="fa fa-dashboard"></i>  <a href="/Admin/Position/index">推荐位管理</a>
+					</li>
+					<li class="active">
+						<i class="fa fa-edit"></i> 添加推荐位
+					</li>
+				</ol>
+			</div>
+		</div>
+		<!-- /.row -->
+
+		<div class="row">
+			<div class="col-lg-6">
+				<!-- 推荐位添加表单 -->
+				<form class="form-horizontal" id="position-add-form">
+					<!-- 填写推荐位名称 -->
+					<div class="form-group">
+						<label for="positionName" class="col-sm-2 control-label">名称：</label>
+						<div class="col-sm-5">
+							<input type="text" name="pos_name" class="form-control" id="positionName" placeholder="请填写推荐位名称">
+						</div>
+					</div>
+					<!-- 填写推荐位描述 -->
+					<div class="form-group">
+						<label for="positionDescription" class="col-sm-2 control-label">描述：</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" name="description" id="positionDescription" placeholder="请填写推荐位描述">
+						</div>
+					</div>
+					<!-- 选择推荐位状态 -->
+					<div class="form-group">
+						<label class="col-sm-2 control-label">状态：</label>
+						<div class="col-sm-5">
+							<input type="radio" name="status" value="1" title="开启" checked> 开启
+							<input type="radio" name="status" title="关闭" value="0"> 关闭
+						</div>
+					</div>
+					<!-- 提交 -->
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="button" class="btn btn-default" id="position-add-submit">提交</button>
+						</div>
+					</div>
+				</form>
+
+			</div>
+
+		</div>
+		<!-- /.row -->
+
+	</div>
+	<!-- /.container-fluid -->
+
+</div>
+<!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+<include file="Index/footer" />

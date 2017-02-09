@@ -1,0 +1,25 @@
+<div class="col-sm-3 col-md-3">
+  <div class="right-title">
+    <h3>文章排行</h3>
+    <span>TOP ARTICLES</span>
+  </div>
+  <div class="right-content">
+    <volist name="topArticles" id="topArticle" key="key" >
+      <li <eq name="key" value="1">class="num1 curr"<else/>class="num{$key}"</eq>>
+        <a target="_blank" href="{:U('/Home/Detail/index?id='.$topArticle['article_id'])}" title="{$topArticle['title']}">{$topArticle['title']}</a>
+        <eq name="key" value="1">
+          <div class="intro">
+            {$topArticle['small_title']}
+          </div>
+        </else></eq>
+      </li>
+    </volist>
+  </div>
+
+  <!-- 广告位 -->
+  <volist name="ads" id="ad">
+    <div class="right-hot">
+      <a target="_blank" href="{$ad['url']}" title="{$ad['title']}"><img src="{$ad['thumb']}" alt="{$ad['title']}"></a>
+    </div>
+  </volist>
+</div>
