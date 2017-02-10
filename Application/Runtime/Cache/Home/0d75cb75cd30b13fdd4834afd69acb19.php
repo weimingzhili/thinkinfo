@@ -15,6 +15,7 @@
 </head>
 <body>
 <!-- 头部导航 -->
+
 <header id="header">
   <div class="navbar-inverse">
     <div class="container">
@@ -63,6 +64,7 @@
       <a target="_blank" href="<?php echo ($ad['url']); ?>" title="<?php echo ($ad['title']); ?>"><img src="<?php echo ($ad['thumb']); ?>" alt="<?php echo ($ad['title']); ?>"></a>
     </div><?php endforeach; endif; else: echo "" ;endif; ?>
 </div>
+
     </div>
   </div>
 </section>

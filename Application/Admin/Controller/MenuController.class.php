@@ -115,7 +115,7 @@ use Think\Exception;
                         $this->ajaxReturn(array('status'=>0,'message'=>'菜单编辑失败'));
                     }
 
-                    $this->ajaxReturn(array('status'=>1,'message'=>'菜单编辑成功，为您转到列表首页'));
+                    $this->ajaxReturn(array('status'=>1,'message'=>'菜单编辑成功'));
                 } catch(Exception $e) {
                     $this->ajaxReturn(array('status'=>0,'message'=>$e->getMessage()));
                 }

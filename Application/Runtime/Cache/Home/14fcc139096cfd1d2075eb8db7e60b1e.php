@@ -15,6 +15,7 @@
 </head>
 <body>
 <!-- 头部导航 -->
+
 <header id="header">
   <div class="navbar-inverse">
     <div class="container">
@@ -37,7 +38,6 @@
     <div class="row">
       <div class="col-sm-9 col-md-9">
 
-
       <!-- 文章列表 -->
       <div class="news-list">
         <?php if(is_array($listArticles)): $i = 0; $__LIST__ = $listArticles;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$listArticle): $mod = ($i % 2 );++$i;?><dl>
@@ -52,12 +52,8 @@
               关键词：<?php echo ($listArticle['keywords']); ?> <span>时间：<?php echo (date('n月j日G时',$listArticle['create_time'])); ?></span> 阅读数(<?php echo ($listArticle['count']); ?>)
             </dd>
           </dl><?php endforeach; endif; else: echo "" ;endif; ?>
-
       </div>
-
     </div>
-
-
 
       <div class="col-sm-3 col-md-3">
   <div class="right-title">
@@ -79,6 +75,7 @@
       <a target="_blank" href="<?php echo ($ad['url']); ?>" title="<?php echo ($ad['title']); ?>"><img src="<?php echo ($ad['thumb']); ?>" alt="<?php echo ($ad['title']); ?>"></a>
     </div><?php endforeach; endif; else: echo "" ;endif; ?>
 </div>
+
     </div>
   </div>
 </section>

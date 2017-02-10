@@ -14,6 +14,7 @@
 </head>
 <body>
   <!-- 头部导航 -->
+
   <header id="header">
   <div class="navbar-inverse">
     <div class="container">
@@ -32,69 +33,69 @@
 
   <!-- 主体 -->
   <section>
-      <div class="container">
-    <div class="row">
-      <div class="col-sm-9 col-md-9">
-        <div class="banner">
-          <div class="banner-left">
+    <div class="container">
+  <div class="row">
+    <div class="col-sm-9 col-md-9">
+      <div class="banner">
+        <div class="banner-left">
 
-            <!-- 轮播图开始 -->
-            <div id="myCarousel" class="carousel slide" data-ride="carousel">
-              <!-- 轮播（Carousel）指标 -->
-              <ol class="carousel-indicators" >
-                <?php if(is_array($bigPics)): foreach($bigPics as $key=>$bigPic): ?><li data-target="#myCarousel" data-slide-to="<?php echo ($key); ?>" <?php if(($key) == "0"): ?>class="active"<?php endif; ?>></li>&nbsp;&nbsp;<?php endforeach; endif; ?>
-              </ol>
-              <!-- 轮播（Carousel）项目 -->
-              <div class="carousel-inner">
-                <?php if(is_array($bigPics)): foreach($bigPics as $key=>$bigPic): ?><div <?php if(($key) == "0"): ?>class="item active"<?php else: ?>class="item"<?php endif; ?>>
-                    <a target="_blank" href="<?php echo U('/Home/Detail/index?id='.$bigPic['article_id']);?>" title="<?php echo ($bigPic['title']); ?>">
-                      <img style="width: 670px;height: 360px;" src="<?php echo ($bigPic['thumb']); ?>" alt="<?php echo ($bigPic['title']); ?>">
-                    </a>
-                    <div class="carousel-caption"><?php echo ($bigPic['title']); ?></div>
-                  </div><?php endforeach; endif; ?>
-              </div>
-              <!-- 轮播（Carousel）导航 -->
-              <a class="carousel-control left" href="#myCarousel"
-                 data-slide="prev">&lsaquo;
-              </a>
-              <a class="carousel-control right" href="#myCarousel"
-                 data-slide="next">&rsaquo;
-              </a>
-            </div>
-            <!-- 轮播图结束 -->
-
-          <!-- 小图推荐 -->
-          </div>
-          <div class="banner-right">
-            <ul>
-              <?php if(is_array($smaPics)): $i = 0; $__LIST__ = $smaPics;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$smaPic): $mod = ($i % 2 );++$i;?><li>
-                  <a target="_blank" href="<?php echo U('/Home/Detail/index?id='.$smaPic['posc_id']);?>" title="<?php echo ($smaPic['title']); ?>">
-                    <img style="width: 150px;height: 113px;" src="<?php echo ($smaPic['thumb']); ?>" alt="<?php echo ($smaPic['title']); ?>">
+          <!-- 轮播图开始 -->
+          <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- 轮播（Carousel）指标 -->
+            <ol class="carousel-indicators" >
+              <?php if(is_array($bigPics)): foreach($bigPics as $key=>$bigPic): ?><li data-target="#myCarousel" data-slide-to="<?php echo ($key); ?>" <?php if(($key) == "0"): ?>class="active"<?php endif; ?>></li>&nbsp;&nbsp;<?php endforeach; endif; ?>
+            </ol>
+            <!-- 轮播（Carousel）项目 -->
+            <div class="carousel-inner">
+              <?php if(is_array($bigPics)): foreach($bigPics as $key=>$bigPic): ?><div <?php if(($key) == "0"): ?>class="item active"<?php else: ?>class="item"<?php endif; ?>>
+                  <a target="_blank" href="<?php echo U('/Home/Detail/index?id='.$bigPic['article_id']);?>" title="<?php echo ($bigPic['title']); ?>">
+                    <img style="width: 670px;height: 360px;" src="<?php echo ($bigPic['thumb']); ?>" alt="<?php echo ($bigPic['title']); ?>">
                   </a>
-                </li><?php endforeach; endif; else: echo "" ;endif; ?>
-            </ul>
+                  <div class="carousel-caption"><?php echo ($bigPic['title']); ?></div>
+                </div><?php endforeach; endif; ?>
+            </div>
+            <!-- 轮播（Carousel）导航 -->
+            <a class="carousel-control left" href="#myCarousel"
+               data-slide="prev">&lsaquo;
+            </a>
+            <a class="carousel-control right" href="#myCarousel"
+               data-slide="next">&rsaquo;
+            </a>
           </div>
-        </div>
-        <!-- 小图推荐结束 -->
+          <!-- 轮播图结束 -->
 
-        <div class="news-list">
-          <?php if(is_array($news)): $i = 0; $__LIST__ = $news;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$new): $mod = ($i % 2 );++$i;?><dl>
-              <dt><a target="_blank" href="<?php echo U('/Home/Detail/index?id='.$new['article_id']);?>" title="<?php echo ($new['title']); ?>"><?php echo ($new['title']); ?></a></dt>
-              <dd class="news-img">
-                <a target="_blank" href="<?php echo U('/Home/Detail/index?id='.$new['article_id']);?>" title="<?php echo ($new['title']); ?>"><img style="width: 200px;height: 120px;" src="<?php echo ($new['thumb']); ?>" alt="<?php echo ($new['title']); ?>"></a>
-              </dd>
-              <dd class="news-intro">
-                <?php echo ($new['description']); ?>
-              </dd>
-              <dd class="news-info">
-                关键词：<?php echo ($new['keywords']); ?> <span>时间：<?php echo (date('n月j日G时',$new['create_time'])); ?></span> <span attr-id="<?php echo ($new['article_id']); ?>" class="article-count node-<?php echo ($new['article_id']); ?>">阅读数（<?php echo ($new['count']); ?>）</span>
-              </dd>
-            </dl><?php endforeach; endif; else: echo "" ;endif; ?>
+        <!-- 小图推荐 -->
+        </div>
+        <div class="banner-right">
+          <ul>
+            <?php if(is_array($smaPics)): $i = 0; $__LIST__ = $smaPics;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$smaPic): $mod = ($i % 2 );++$i;?><li>
+                <a target="_blank" href="<?php echo U('/Home/Detail/index?id='.$smaPic['article_id']);?>" title="<?php echo ($smaPic['title']); ?>">
+                  <img style="width: 150px;height: 113px;" src="<?php echo ($smaPic['thumb']); ?>" alt="<?php echo ($smaPic['title']); ?>">
+                </a>
+              </li><?php endforeach; endif; else: echo "" ;endif; ?>
+          </ul>
         </div>
       </div>
+      <!-- 小图推荐结束 -->
 
-      <!-- 侧栏 -->
-      <div class="col-sm-3 col-md-3">
+      <div class="news-list">
+        <?php if(is_array($news)): $i = 0; $__LIST__ = $news;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$new): $mod = ($i % 2 );++$i;?><dl>
+            <dt><a target="_blank" href="<?php echo U('/Home/Detail/index?id='.$new['article_id']);?>" title="<?php echo ($new['title']); ?>"><?php echo ($new['title']); ?></a></dt>
+            <dd class="news-img">
+              <a target="_blank" href="<?php echo U('/Home/Detail/index?id='.$new['article_id']);?>" title="<?php echo ($new['title']); ?>"><img style="width: 200px;height: 120px;" src="<?php echo ($new['thumb']); ?>" alt="<?php echo ($new['title']); ?>"></a>
+            </dd>
+            <dd class="news-intro">
+              <?php echo ($new['description']); ?>
+            </dd>
+            <dd class="news-info">
+              关键词：<?php echo ($new['keywords']); ?> <span>时间：<?php echo (date('n月j日G时',$new['create_time'])); ?></span> <span attr-id="<?php echo ($new['article_id']); ?>" class="article-count node-<?php echo ($new['article_id']); ?>">阅读数（<?php echo ($new['count']); ?>）</span>
+            </dd>
+          </dl><?php endforeach; endif; else: echo "" ;endif; ?>
+      </div>
+    </div>
+
+  <!-- 侧栏 -->
+  <div class="col-sm-3 col-md-3">
   <div class="right-title">
     <h3>文章排行</h3>
     <span>TOP ARTICLES</span>
@@ -115,8 +116,7 @@
     </div><?php endforeach; endif; else: echo "" ;endif; ?>
 </div>
 
-    </div>
-  </div>
+</div>
   </section>
 
   <script src="/Public/js/admin/common.js"></script>

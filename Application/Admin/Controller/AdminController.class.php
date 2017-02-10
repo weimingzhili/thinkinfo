@@ -88,7 +88,7 @@ use Think\Exception;
                 // 更新用户记录
                 try {
                     $result = D('Admin')->adminUpdate($username,$_POST,array('realname','email'));
-                    if($result) {
+                    if($result !== false) {
                         $this->ajaxReturn(array('status'=>1,'message'=>'保存成功！'));
                     }
 

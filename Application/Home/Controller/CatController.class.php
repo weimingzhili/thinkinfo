@@ -2,12 +2,6 @@
 
 namespace Home\Controller;
 
-use Admin\model\MenuModel;
-
-use Admin\model\BasicModel;
-
-use Admin\model\ArticleModel;
-
 use Admin\Model\PositionContentModel;
 
 /**
@@ -26,15 +20,15 @@ use Admin\Model\PositionContentModel;
                     return $this->error('栏目id不合法');
                 }
 
-                $menuModel = new MenuModel();
+                $menuModel = new \Admin\Model\MenuModel();
                 $cat = $menuModel->getMenu(intval($id));
                 if (empty($cat) || $cat['type'] != 1 || $cat['status'] != 1) {
                     return $this->error('请求的页面不存在！');
                 }
 
 
-                $basicModel = new BasicModel();
-                $articleModel = new ArticleModel();
+                $basicModel = new \Admin\Model\BasicModel();
+                $articleModel = new \Admin\Model\ArticleModel();
                 $poscModel = new PositionContentModel();
                 // 获取栏目数据
                 $navs = $menuModel->getMenu(array('status' => 1, 'type' => 1));

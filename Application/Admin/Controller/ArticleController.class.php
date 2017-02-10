@@ -141,13 +141,13 @@ use Think\Exception;
                     }
                     // 更新文章表
                     $updateRes = $articleModel->updateArticle($_POST['article_id'],$_POST);
-                    if($updateRes) { // 在更新文章表成功的情况下再更新文章内容表
+                    if($updateRes !== false) { // 在更新文章表成功的情况下再更新文章内容表
                         $result = D('ArticleContent')->updateContent($_POST['article_id'],$_POST['content']);
-                        if($result) {
-                            $this->ajaxReturn(array('status'=>1,'message'=>'操作成功！为您跳转到文章列表页面'));
+                        if($result ===false) {
+                            $this->ajaxReturn(array('status'=>0,'message'=>'文章内容更新失败'));
                         }
 
-                        $this->ajaxReturn(array('status'=>0,'message'=>'文章内容更新失败'));
+                        $this->ajaxReturn(array('status'=>1,'message'=>'操作成功！为您跳转到文章列表页面'));
                     }
 
                     $this->ajaxReturn(array('status'=>0,'message'=>'文章更新失败'));

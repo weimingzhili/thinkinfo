@@ -28,7 +28,7 @@ use Think\Exception;
          */
         public function positionPage($where) {
             // 每页显示的记录数
-            $pageSize = 2;
+            $pageSize = 5;
             // 获取记录总数
             $count = $this->_db->where($where)->count();
 
@@ -69,7 +69,7 @@ use Think\Exception;
          */
         public function positionAdd($data) {
             if(isset($data) && is_array($data) && in_array($data['status'],array(0,1))) {
-                $addData['mame'] = htmlspecialchars($data['name']);
+                $addData['pos_name'] = htmlspecialchars($data['pos_name']);
                 $addData['description'] = $data['description']
                                         ? htmlspecialchars($data['description'])
                                         : '';

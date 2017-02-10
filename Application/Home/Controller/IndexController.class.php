@@ -35,7 +35,7 @@ use Admin\Model\ArticleModel;
             $ads = $poscModel->getPositionContent(array('status'=>1,'pos_id'=>5,'limit'=>2));
             $this->assign(array(
                 'ads' => $ads,
-                'topArticles' => $smaPics,
+                'topArticles' => $topArticles,
                 'smaPics' => $smaPics,
                 'bigPics' => $bigPics,
                 'navs' => $navs,
@@ -56,8 +56,8 @@ use Admin\Model\ArticleModel;
          * @return array
          */
         public function buildIndexHtml() {
-            $user = $_POST['user'];
-            if(!empty($user)) {
+            // 通过用户名是否存在判断是否是从后台发起的操作
+            if(!empty($_POST['user'])) {
                 $result = $this->index('buildIndexHtml');
                 if(!empty($result)) {
                     $this->ajaxReturn(array('status'=>1,'message'=>'首页缓存成功！'));
