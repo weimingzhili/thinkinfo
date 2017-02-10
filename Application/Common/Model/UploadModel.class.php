@@ -1,7 +1,10 @@
 <?php
+
 namespace Common\Model;
 
 use Think\Model;
+
+use Think\Upload;
 
 /**
  * 文件上传处理
@@ -13,7 +16,7 @@ use Think\Model;
         private $_uploadObj = '';
 
         public function __construct() {
-            $this->_uploadObj = new \Think\Upload();
+            $this->_uploadObj = new Upload();
             $this->_uploadObj->rootPath = './'.self::UPLOADPDIR.'/';
             $this->_uploadObj->subName = date('Ymd');
         }

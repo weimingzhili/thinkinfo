@@ -1,19 +1,23 @@
 <?php
+
 namespace Admin\Controller;
 
 use Think\Exception;
 
 /**
- * 推荐位管理
+ * 推荐位操作
  * @author WeiZeng <weimingzhili@gmail.com>
  */
     class PositionController extends CommonController {
         // 输出列表页
         public function index() {
-            $where['status'] = array('neq',-1);     // 默认的分页查询条件
-            $positions = D('Position')->positionPage($where);   // 获取分页记录和分页导航
-            $this->assign('list',$positions['list']);
-            $this->assign('nav',$positions['nav']);
+            // 获取分页数据
+            $where['status'] = array('neq',-1);
+            $positions = D('Position')->positionPage($where);
+            $this->assign(array(
+                'list' => $positions['list'],
+                'nav'  => $positions['nav'],
+            ));
             $this->display();
         }
 
@@ -22,14 +26,15 @@ use Think\Exception;
          * @return  array
          */
         public function add() {
-            if(!empty($_POST)) {
+            if(!empty($_POST)) { // 当POST数据不为空，认为用户执行的是添加操作
+                // 检查数据
                 $positionModel = D('Position');
-
                 $checkRes = $positionModel->positionCheck($_POST);
                 if($checkRes) {
                     $this->ajaxReturn($checkRes);
                 }
 
+                // 写入数据库
                 try {
                     $addRes = $positionModel->positionAdd($_POST);
                     if($addRes) {
@@ -40,7 +45,7 @@ use Think\Exception;
                 } catch(Exception $e) {
                     $this->ajaxReturn(array('status'=>0,'message'=>$e->getMessage()));
                 }
-            } else {
+            } else { // 输出添加页面
                 $this->display();
             }
         }
@@ -66,14 +71,15 @@ use Think\Exception;
          */
         public function save() {
             $id = $_POST['pos_id'];
-
             if(isset($id)) {
+                // 检查数据
                 $positionModel = D('position');
                 $checkRes = $positionModel->positionCheck($_POST);
                 if($checkRes) {
                     $this->ajaxReturn($checkRes);
                 }
 
+                // 更新记录
                 try {
                     $saveRes = $positionModel->positionUpdate($id,$_POST);
                     if($saveRes) {
@@ -93,10 +99,10 @@ use Think\Exception;
          */
         public function update() {
             $id = $_POST['pos_id'];
-
             if(isset($id)) {
                 $url = $_SERVER['HTTP_REFERER'];
 
+                // 更新记录
                 try {
                     $updateRes = D('Position')->positionUpdate($id,$_POST['status']);
                     if($updateRes) {

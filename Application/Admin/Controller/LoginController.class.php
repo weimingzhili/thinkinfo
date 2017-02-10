@@ -1,4 +1,5 @@
 <?php
+
 namespace Admin\Controller;
 
 use Think\Controller;
@@ -65,6 +66,7 @@ use Think\Exception;
                                      : $_SERVER['REMOTE_ADDR'];
                 $data['lastlogintime'] = time();
 
+                // 更新用户登录记录
                 try {
                     $updateRes = D('Admin')->adminUpdate($username,$data);
                     if($updateRes) {
@@ -86,6 +88,7 @@ use Think\Exception;
          * 用户退出
          */
         public function logout() {
+            // 将Session数据清空
             session('admin', null);
             $this->redirect('/Admin/Login/index');
         }

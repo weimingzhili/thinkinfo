@@ -1,10 +1,11 @@
 <?php
+
 namespace Admin\Controller;
 
 use Think\Controller;
 
 /**
- * 文件上传管理
+ * 文件上传
  * @author WeiZeng <weimingzhili@gmail.com>
  */
     class UploadController extends Controller {

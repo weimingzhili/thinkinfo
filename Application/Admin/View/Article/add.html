@@ -1,8 +1,10 @@
 <include file="Index/header" />
+
 <body>
 <div id="wrapper">
 
   <include file="Index/nav"/>
+
   <script src="/Public/js/kindeditor/kindeditor-all.js"></script>
   <div id="page-wrapper">
 
@@ -57,9 +59,9 @@
               <div class="col-sm-5">
                 <select class="form-control" name="cat_id" id="cat">
                   <option value="null">请选择栏目</option>
-                    <volist name="homeMenu" id="vo">
-                      <option value="{$vo.menu_id}">{$vo.name}</option>
-                    </volist>
+                  <volist name="homeMenu" id="vo">
+                    <option value="{$vo.menu_id}">{$vo.name}</option>
+                  </volist>
                 </select>
               </div>
             </div>
@@ -101,7 +103,6 @@
             </div>
           </form>
 
-
         </div>
 
       </div>
@@ -114,4 +115,5 @@
   <!-- /#page-wrapper -->
 
 </div>
+
 <include file="Index/footer" />

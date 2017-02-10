@@ -1,4 +1,5 @@
 <?php
+
 namespace Admin\Controller;
 
 use Think\Exception;
@@ -15,8 +16,10 @@ use Think\Exception;
             $pageSize = 5;
             $where['status'] = array('neq',-1);
             $pageData = D('Admin')->adminPage($where,$pageSize);
-            $this->assign('list',$pageData['list']);
-            $this->assign('nav',$pageData['nav']);
+            $this->assign(array(
+                'list' => $pageData['list'],
+                'nav'  => $pageData['nav'],
+            ));
             $this->display();
         }
 
@@ -25,13 +28,15 @@ use Think\Exception;
          * @return array
          */
         public function add() {
-            if(!empty($_POST)) {
+            if(!empty($_POST)) { // 当POST数据不为空时，认为用户执行的是添加操作
+                // 检查数据
                 $adminModel = D('Admin');
                 $checkRes = $adminModel->adminCheck($_POST);
                 if($checkRes) {
                     $this->ajaxReturn($checkRes);
                 }
 
+                // 添加用户
                 try {
                     $result = $adminModel->adminAdd($_POST);
                     if($result) {
@@ -42,7 +47,7 @@ use Think\Exception;
                 } catch(Exception $e) {
                     $this->ajaxReturn(array('status'=>0,'message'=>$e->getMessage()));
                 }
-            } else {
+            } else { // 输出菜单添加页面
                 $this->display();
             }
         }
@@ -53,10 +58,12 @@ use Think\Exception;
          */
         public function update() {
             if(!empty($_POST)) {
+                // 获取数据
                 $id = $_POST['id'];
                 $status = $_POST['status'];
                 $url = $_SERVER['HTTP_REFERER'];
 
+                // 更新记录
                 try {
                     $result = D('Admin')->adminUpdate($id,$status);
                     if($result) {
@@ -75,9 +82,10 @@ use Think\Exception;
          * @return array
          */
         public function personal() {
-            if(!empty($_POST['admin_id'])) {
+            if(!empty($_POST['admin_id'])) { // 当POST数据中存在admin_id，认为用户是在更新资料
                 $username = session('admin.username');
 
+                // 更新用户记录
                 try {
                     $result = D('Admin')->adminUpdate($username,$_POST,array('realname','email'));
                     if($result) {
@@ -88,7 +96,7 @@ use Think\Exception;
                 } catch(Exception $e) {
                     $this->ajaxReturn(array('status'=>1,'message'=>$e->getMessage()));
                 }
-            } else {
+            } else { // 展示用户资料
                 $adminInfo = $this->getLoginInfo();
                 $admin_id = $adminInfo['admin_id'];
                 $admin = D('Admin')->getAdmin($admin_id);

@@ -1,4 +1,5 @@
 <?php
+
 namespace Admin\Controller;
 
 use Think\Exception;
@@ -58,6 +59,7 @@ use Think\Exception;
                 $errors = array();
                 $url = $_SERVER['HTTP_REFERER'];
 
+                // 更新数据
                 try {
                     foreach($_POST as $article_id => $list_id) {
                         $listRes = $articleModel->listOrder($article_id,$list_id);
@@ -66,12 +68,13 @@ use Think\Exception;
                             }
                     }
 
+                    // 判断更新结果
                     if(empty($errors)) {
                         $this->ajaxReturn(array('status'=>1,'url'=>$url));
                     }
 
                     $this->ajaxReturn(array('status'=>0,'排序失败'));
-                } catch(\Think\Exception $e) {
+                } catch(Exception $e) {
                     $this->ajaxReturn(array('status'=>0,'message'=>$e->getMessage()));
                 }
             }
@@ -83,7 +86,7 @@ use Think\Exception;
          */
         public function add() {
             // 判断用户是否添加
-            if(!empty($_POST)) {
+            if(!empty($_POST)) { // 当POST数据不为空时，认为用户执行的是添加操作
                 try {
                     $articleModel = D('Article');
                     $articleContentModel = D('ArticleContent');
@@ -108,12 +111,11 @@ use Think\Exception;
                     }
 
                     $this->ajaxReturn(array('status' => 0, 'message' => '添加失败'));
-                } catch (\Think\Exception $e) {
+                } catch (Exception $e) {
                     $this->ajaxReturn(array('status' => 0, 'message' => $e->getMessage()));
                 }
 
-            } else {
-                // 输出页面数据
+            } else { // 输出文章添加页面
                 $homeMenu = D('Menu')->getMenu(array('type'=>1,'status'=>1));
                 $admin = getUsername();
                 $this->assign([
@@ -129,16 +131,17 @@ use Think\Exception;
          * @return array
          */
         public function edit() {
-            if(isset($_POST['article_id'])) {
+            if(isset($_POST['article_id'])) { // 当POST数据中存在article_id时，认为用户在保存数据
+                // 检查数据
                 try {
                     $articleModel = D('Article');
                     $checkRes = $articleModel->checkArticle($_POST);
                     if($checkRes) {
                         $this->ajaxReturn($checkRes);
                     }
-
+                    // 更新文章表
                     $updateRes = $articleModel->updateArticle($_POST['article_id'],$_POST);
-                    if($updateRes) {
+                    if($updateRes) { // 在更新文章表成功的情况下再更新文章内容表
                         $result = D('ArticleContent')->updateContent($_POST['article_id'],$_POST['content']);
                         if($result) {
                             $this->ajaxReturn(array('status'=>1,'message'=>'操作成功！为您跳转到文章列表页面'));
@@ -148,10 +151,10 @@ use Think\Exception;
                     }
 
                     $this->ajaxReturn(array('status'=>0,'message'=>'文章更新失败'));
-                } catch(\Think\Exception $e) {
+                } catch(Exception $e) {
                     $this->ajaxReturn(array('status'=>0,'message'=>$e->getMessage()));
                 }
-            } else {
+            } else { // 输出编辑菜单页面
                 $article = D('Article')->getArticle($_GET['id']);
                 $content = D('ArticleContent')->getContent($_GET['id']);
                 $admin = getUsername();
@@ -172,10 +175,12 @@ use Think\Exception;
          */
         public function update() {
             if(isset($_POST['id'],$_POST['status'])) {
+                // 获取数据
                 $article_id = $_POST['id'];
                 $status = $_POST['status'];
                 $url = $_SERVER['HTTP_REFERER'];
 
+                // 更新记录
                 try {
                     $updateRes = D('Article')->updateStatus($article_id,$status);
                     if($updateRes) {
@@ -183,7 +188,7 @@ use Think\Exception;
                     }
 
                     $this->ajaxReturn(array('status'=>0,'message'=>'更新状态失败1'));
-                } catch(\Think\Exception $e) {
+                } catch(Exception $e) {
                     $this->ajaxReturn(array('status'=>0,'message'=>$e->getMessage()));
                 }
             }
@@ -195,18 +200,22 @@ use Think\Exception;
          */
         public function push() {
             if(!empty($_POST['articleIdStr']) && !empty($_POST['pos_id'])) {
+                // 获取文章id和推荐位id
                 $url = $_SERVER['HTTP_REFERER'];
                 $articleIdStr = $_POST['articleIdStr'];
                 $pos_id = $_POST['pos_id'];
 
+                // 检查推荐位id
                 if(is_numeric($pos_id)) {
                     $where['article_id'] = array('in',$articleIdStr);
                     $articles = D('Article')->getArticle($where);
 
+                    // 判断文章数据
                     if(empty($articles)) {
                         $this->ajaxReturn(array('status'=>0,'message'=>'数据异常！'));
                     }
 
+                    // 推送文章
                     try {
                         $addRes = D('PositionContent')->articlePush($pos_id,$articles);
                         if($addRes) {

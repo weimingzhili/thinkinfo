@@ -1,8 +1,11 @@
 <?php
+
 namespace Admin\Controller;
 
+use Think\Exception;
+
 /**
- * 菜单管理
+ * 菜单操作
  * @author WeiZeng <weimingzhili@gmail.com>
  */
     class MenuController extends CommonController {
@@ -23,8 +26,10 @@ namespace Admin\Controller;
 
             // 获取分页
             $page = D('Menu')->menuPages($where,$pageSize);
-            $this->assign('show',$page['show']);
-            $this->assign('list',$page['list']);
+            $this->assign(array(
+                'show' => $page['show'],
+                'list' => $page['list'],
+            ));
 
             // 输出到模板
             $this->display();
@@ -40,6 +45,7 @@ namespace Admin\Controller;
                 $errors = array();
                 $url = $_SERVER['HTTP_REFERER'];
 
+                // 更新记录
                 try {
                     foreach($_POST as $menu_id => $listorder) {
                         $result = $menuModel->listUpdate($menu_id,$listorder);
@@ -53,7 +59,7 @@ namespace Admin\Controller;
                     }
 
                     $this->ajaxReturn(array('status'=>0,'message'=>'排序失败'));
-                } catch(\Think\Exception $e) {
+                } catch(Exception $e) {
                     $this->ajaxReturn(array('status'=>0,'message'=>'排序失败'));
                 }
             }
@@ -65,14 +71,14 @@ namespace Admin\Controller;
          */
         public function add() {
             // 判断用户是否提交
-            if(!empty($_POST)) {
+            if(!empty($_POST)) { // 当POST数据不为空时，认为用户执行的是菜单添加操作
                 // 检查表单数据
                 $checkRes = D('Menu')->checkMenu($_POST);
                 if($checkRes) {
                     $this->ajaxReturn($checkRes);
                 }
 
-                // 将提交的数据写入数据库，并处理返回的结果
+                // 添加菜单
                 try {
                     $result = D('Menu')->menuAdd($_POST);
                     if($result == false) {
@@ -80,7 +86,7 @@ namespace Admin\Controller;
                     }
 
                     $this->ajaxReturn(array('status'=>1));
-                } catch(\Think\Exception $e) {
+                } catch(Exception $e) {
                     $this->ajaxReturn(array('status'=>0,'message'=>$e->getMessage()));
                 }
 
@@ -95,7 +101,7 @@ namespace Admin\Controller;
          * @return array
          */
         public function edit() {
-            if($_POST['id']) {
+            if($_POST['id']) { // 当POST数据存在id时，认为用户执行的是菜单保存操作
                 // 检查表单数据
                 $checkRes = D('Menu')->checkMenu($_POST);
                 if($checkRes) {
@@ -110,11 +116,11 @@ namespace Admin\Controller;
                     }
 
                     $this->ajaxReturn(array('status'=>1,'message'=>'菜单编辑成功，为您转到列表首页'));
-                } catch(\Think\Exception $e) {
+                } catch(Exception $e) {
                     $this->ajaxReturn(array('status'=>0,'message'=>$e->getMessage()));
                 }
 
-            } else {
+            } else { // 输出菜单添加页面
                 $menu_id = $_GET['id'];
                 $menu = D('Menu')->getMenu($menu_id);
                 $this->assign('menu',$menu);
@@ -129,10 +135,12 @@ namespace Admin\Controller;
          */
         public function updateStatus() {
             if(!empty($_POST)) {
+                // 获取数据
                 $menu_id = $_POST['menu_id'];
                 $menuData['status'] = $_POST['status'];
                 $url = $_SERVER['HTTP_REFERER'];
 
+                // 更新记录
                 try{
                     $updateRes = D('Menu')->updateMenu($menu_id,$menuData);
                     if($updateRes === false) {
@@ -140,7 +148,7 @@ namespace Admin\Controller;
                     }
 
                     $this->ajaxReturn(array('status'=>1,'message'=>'操作成功','url'=>$url));
-                } catch(\Think\Exception $e) {
+                } catch(Exception $e) {
                     $this->ajaxReturn(array('status'=>0,'message'=>$e->getMessage()));
                 }
             }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Admin\Controller;
 
 use Think\Controller;
@@ -41,6 +42,7 @@ use Think\Controller;
          * @return boolean
          */
         public function isLogin() {
+            // 获取用户登录信息
             $admin = $this->getLoginInfo();
             if($admin && is_array($admin) && $admin['username']) {
                 return true;
@@ -53,9 +55,11 @@ use Think\Controller;
          * 获取导航菜单
          */
         public function getNavMenus() {
+            // 获取导航菜单
             $where = array('type'=>2,'status'=>1);
             $navMenus = D('Menu')->getMenu($where);
 
+            // 如果不是超级管理员，不输出用户管理功能
             if(session('admin.username') != 'wmzl') {
                 foreach($navMenus as $key => $value) {
                     if($value['c'] == 'Admin') {

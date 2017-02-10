@@ -1,10 +1,21 @@
 <?php
+
 namespace Home\Controller;
+
+use Admin\Model\ArticleModel;
+
+use Admin\Model\ArticleContentModel;
+
+use Admin\Model\MenuModel;
+
+use Admin\Model\BasicModel;
+
+use Admin\Model\PositionContentModel;
 
 use Think\Exception;
 
 /**
- * 文章详情显示
+ * 显示文章详情
  * @author WeiZeng <weimingzhili@gmail.com>
  */
     class DetailController extends CommonController {
@@ -14,9 +25,10 @@ use Think\Exception;
         public function index() {
             if(!empty($_GET['id'])) {
                 if(is_numeric($_GET['id']) && $_GET['id'] > 0) {
+                    // 获取文章数据
                     $id = intval($_GET['id']);
-                    $articleModel = new \Admin\Model\ArticleModel();
-                    $articleContentModel = new \Admin\Model\ArticleContentModel();
+                    $articleModel = new ArticleModel();
+                    $articleContentModel = new ArticleContentModel();
                     $articleData = $articleModel->getArticle($id);
 
                     if(empty($articleData) || $articleData['status'] != 1) {
@@ -29,14 +41,15 @@ use Think\Exception;
                     }
                     $content = htmlspecialchars_decode($articleContent);
 
+                    // 更新文章阅读数
                     try {
                         $count = $articleData['count'] + 1;
                         $updateRes = $articleModel->update($id,$count);
                         if($updateRes) {
-                            $menuModel = new \Admin\Model\MenuModel();
-                            $basicModel = new \Admin\Model\BasicModel();
-                            $posCModel = new \Admin\Model\PositionContentModel();
-
+                            // 获取栏目、配置、推荐位内容数据
+                            $menuModel = new MenuModel();
+                            $basicModel = new BasicModel();
+                            $posCModel = new PositionContentModel();
                             $navs = $menuModel->getMenu(array('status'=>1,'type'=>1));
                             $config = $basicModel->getConfig();
                             $topArticles = $articleModel->getArticle(array('status' => 1),array('article_id,title,small_title'), 10, 'count desc,article_id');;

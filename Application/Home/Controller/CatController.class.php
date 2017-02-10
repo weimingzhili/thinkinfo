@@ -1,5 +1,14 @@
 <?php
+
 namespace Home\Controller;
+
+use Admin\model\MenuModel;
+
+use Admin\model\BasicModel;
+
+use Admin\model\ArticleModel;
+
+use Admin\Model\PositionContentModel;
 
 /**
  * 栏目管理
@@ -17,21 +26,25 @@ namespace Home\Controller;
                     return $this->error('栏目id不合法');
                 }
 
-                $menuModel = new \Admin\Model\MenuModel();
+                $menuModel = new MenuModel();
                 $cat = $menuModel->getMenu(intval($id));
                 if (empty($cat) || $cat['type'] != 1 || $cat['status'] != 1) {
                     return $this->error('请求的页面不存在！');
                 }
 
 
-                $basicModel = new \Admin\Model\BasicModel();
-                $articleModel = new \Admin\Model\ArticleModel();
-                $poscModel = new \Admin\Model\PositionContentModel();
-
+                $basicModel = new BasicModel();
+                $articleModel = new ArticleModel();
+                $poscModel = new PositionContentModel();
+                // 获取栏目数据
                 $navs = $menuModel->getMenu(array('status' => 1, 'type' => 1));
+                // 获取配置数据
                 $config = $basicModel->getConfig();
+                // 获取文章数据
                 $topArticles = $articleModel->getArticle(array('status' => 1),array('article_id,title,small_title'), 5, 'count desc,article_id');
+                // 获取推荐位内容数据
                 $ads = $poscModel->getPositionContent(array('status' => 1, 'pos_id' => 5, 'limit' => 2));
+                // 获取文章分页数据
                 $listArticles = $articleModel->articlePage(array('status'=>1,'thumb'=>array('neq',''),'cat_id'=>$id),5);
 
                 $this->assign(array(

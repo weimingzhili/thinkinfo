@@ -1,11 +1,12 @@
 <?php
-namespace Admin\Model;
 
-use Think\Exception;
+namespace Admin\Model;
 
 use Think\Model;
 
 use Think\Page;
+
+use Think\Exception;
 
 /**
  * 推荐位内容操作
@@ -29,6 +30,7 @@ use Think\Page;
          */
         public function articlePush($id,$data) {
             if(isset($id,$data) && is_numeric($id) && is_array($data)) {
+                // 写入数据库
                 foreach($data as $article) {
                     $addData = array(
                         'pos_id' => intval($id),
@@ -85,6 +87,7 @@ use Think\Page;
          */
         public function listOrder($data) {
             if(isset($data) && is_array($data)) {
+                // 更新记录
                 foreach($data as $id => $list) {
                     $where['posc_id'] = intval($id);
                     $list_id = intval($list);
@@ -117,7 +120,7 @@ use Think\Page;
             if(empty($data['pos_id'])) {
                 return array('status'=>0,'message'=>'请选择推荐位！');
             }
-            if(empty($data['thumb'])) {
+            if(empty($data['thumb'])) { // 当用户没有上传缩略图时，尝试从文章记录中获取
                 if(!empty($data['article_id'])){
                     $article = D('Article')->getArticle(intval($data['article_id']));
                     if(!empty($article) && is_array($article)) {
@@ -153,7 +156,7 @@ use Think\Page;
 
         /**
          * 获取推荐位内容
-         * @param int $id 推荐位内容id
+         * @param int|array $data 查询条件
          * @return array
          */
         public function getPositionContent($data) {
@@ -171,12 +174,6 @@ use Think\Page;
                               ->select();
                     return $result;
                 }
-            }
-
-
-            if(!empty($id) && is_numeric($id)) {
-                $where['posc_id'] = intval($id);
-                return $this->_db->where($where)->find();
             }
 
             return array();

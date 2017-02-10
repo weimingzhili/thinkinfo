@@ -1,75 +1,76 @@
 <include file="Index/header" />
+
 <body>
 <div id="wrapper">
 
-    <include file="Index/nav"/>
-<div id="page-wrapper">
+  <include file="Index/nav"/>
+  <div id="page-wrapper">
 
-	<div class="container-fluid">
+    <div class="container-fluid">
 
-		<!-- Page Heading -->
-		<div class="row">
-			<div class="col-lg-12">
+      <!-- Page Heading -->
+      <div class="row">
+        <div class="col-lg-12">
 
-				<ol class="breadcrumb">
-					<li>
-						<i class="fa fa-dashboard"></i>  <a href="/Admin/Position/index">推荐位管理</a>
-					</li>
-					<li class="active">
-						<i class="fa fa-edit"></i> 编辑推荐位
-					</li>
-				</ol>
-			</div>
-		</div>
-		<!-- /.row -->
+          <ol class="breadcrumb">
+            <li>
+              <i class="fa fa-dashboard"></i>  <a href="/Admin/Position/index">推荐位管理</a>
+            </li>
+            <li class="active">
+              <i class="fa fa-edit"></i> 编辑推荐位
+            </li>
+          </ol>
+        </div>
+      </div>
+      <!-- /.row -->
 
-		<div class="row">
-			<div class="col-lg-6">
-				<!-- 推荐位编辑表单 -->
-				<form class="form-horizontal" id="position-edit-form">
-					<!-- 填写推荐位名称 -->
-					<div class="form-group">
-						<label for="positionName" class="col-sm-2 control-label">名称：</label>
-						<div class="col-sm-5">
-							<input type="text" name="pos_name" class="form-control" id="positionName" placeholder="请填写推荐位名称" value="{$position['pos_name']}">
-						</div>
-					</div>
-					<!-- 填写推荐位描述 -->
-					<div class="form-group">
-						<label for="positionStatus" class="col-sm-2 control-label">描述：</label>
-						<div class="col-sm-5">
-							<input type="text" class="form-control" name="description" id="positionStatus" placeholder="请填写推荐位描述" value="{$position['description']}">
-						</div>
-					</div>
-					<!-- 选择推荐位状态 -->
-					<div class="form-group">
-						<label class="col-sm-2 control-label">状态：</label>
-						<div class="col-sm-5">
-							<input type="radio" name="status" value="1" title="开启" <eq name="position['status']" value="1">checked</eq>> 开启
-							<input type="radio" name="status" value="0" title="关闭" <eq name="position['status']" value="0">checked</eq>> 关闭
-						</div>
-					</div>
+      <div class="row">
+        <div class="col-lg-6">
+          <!-- 推荐位编辑表单 -->
+          <form class="form-horizontal" id="position-edit-form">
+            <!-- 填写推荐位名称 -->
+            <div class="form-group">
+              <label for="positionName" class="col-sm-2 control-label">名称：</label>
+              <div class="col-sm-5">
+                <input type="text" name="pos_name" class="form-control" id="positionName" placeholder="请填写推荐位名称" value="{$position['pos_name']}">
+              </div>
+            </div>
+            <!-- 填写推荐位描述 -->
+            <div class="form-group">
+              <label for="positionStatus" class="col-sm-2 control-label">描述：</label>
+              <div class="col-sm-5">
+                <input type="text" class="form-control" name="description" id="positionStatus" placeholder="请填写推荐位描述" value="{$position['description']}">
+              </div>
+            </div>
+            <!-- 选择推荐位状态 -->
+            <div class="form-group">
+              <label class="col-sm-2 control-label">状态：</label>
+              <div class="col-sm-5">
+                <input type="radio" name="status" value="1" title="开启" <eq name="position['status']" value="1">checked</eq>> 开启
+                <input type="radio" name="status" value="0" title="关闭" <eq name="position['status']" value="0">checked</eq>> 关闭
+              </div>
+            </div>
 
-                  <input type="hidden" name="pos_id" value="{$position['pos_id']}">
+            <input type="hidden" name="pos_id" value="{$position['pos_id']}">
 
-					<!-- 保存 -->
-					<div class="form-group">
-						<div class="col-sm-offset-2 col-sm-10">
-							<button type="button" class="btn btn-default" id="position-edit-save">保存</button>
-						</div>
-					</div>
-				</form>
+            <!-- 保存 -->
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" class="btn btn-default" id="position-edit-save">保存</button>
+              </div>
+            </div>
+          </form>
 
-			</div>
+        </div>
 
-		</div>
-		<!-- /.row -->
+      </div>
+      <!-- /.row -->
 
-	</div>
-	<!-- /.container-fluid -->
+    </div>
+    <!-- /.container-fluid -->
 
-</div>
-<!-- /#page-wrapper -->
+  </div>
+  <!-- /#page-wrapper -->
 
 </div>
 <!-- /#wrapper -->

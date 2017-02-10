@@ -125,4 +125,3 @@
 
     // 删除菜单
     updateMenu(".singcms-table #singcms-delete","attr-id",-1,"是否要删除当前菜单？",common.menuUpdateStatus);
-

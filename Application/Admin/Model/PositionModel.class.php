@@ -1,11 +1,12 @@
 <?php
-namespace Admin\Model;
 
-use Think\Exception;
+namespace Admin\Model;
 
 use Think\Model;
 
 use Think\Page;
+
+use Think\Exception;
 
 /**
  * 推荐位操作
@@ -26,11 +27,14 @@ use Think\Page;
          * @return array
          */
         public function positionPage($where) {
-            $pageSize = 2;      // 每页显示的记录数
-            $count = $this->_db->where($where)->count();    // 获取记录总数
+            // 每页显示的记录数
+            $pageSize = 2;
+            // 获取记录总数
+            $count = $this->_db->where($where)->count();
 
-            $page = new Page($count,$pageSize);     // 实例化分页类
-            $nav = $page->show();       // 获取分页导航
+            // 获取分页导航
+            $page = new Page($count,$pageSize);
+            $nav = $page->show();
 
             // 获取分页数据
             $list = $this->_db->where($where)
@@ -103,6 +107,7 @@ use Think\Page;
          * @throws Exception
          */
         public function positionUpdate($id,$data) {
+            // 检查数据
             if(isset($id,$data) && is_numeric($id)) {
                 if(in_array($data,array(-1,0,1))) {
                     $where['pos_id'] = intval($id);

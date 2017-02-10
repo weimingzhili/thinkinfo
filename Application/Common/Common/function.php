@@ -146,4 +146,3 @@
 
         return $positions[$id] ? $positions[$id] : '';
     }
-

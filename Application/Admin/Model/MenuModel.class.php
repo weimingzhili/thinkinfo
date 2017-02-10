@@ -1,7 +1,12 @@
 <?php
+
 namespace Admin\Model;
 
 use Think\Model;
+
+use Think\Page;
+
+use Think\Exception;
 
 /**
  * 菜单操作
@@ -48,7 +53,7 @@ use Think\Model;
         public function menuPages($where,$pageSize) {
             // 获取分页
             $count = $this->_db->where($where)->count();
-            $page = new \Think\Page($count,$pageSize);
+            $page = new Page($count,$pageSize);
             $show = $page->show();
 
             // 分页数据查询
@@ -66,14 +71,14 @@ use Think\Model;
          * @param integer $menu_id
          * @param integer $listorder
          * @return integer|boolean
-         * @throws \Think\Exception
+         * @throws Exception
          */
         public function listUpdate($menu_id,$listorder) {
             if(!isset($menu_id) || !is_numeric($menu_id)) {
-                throw new \Think\Exception('id不合法');
+                throw new Exception('id不合法');
             }
             if(!isset($listorder) || !is_numeric($listorder)) {
-                throw new \Think\Exception('排序的id不合法');
+                throw new Exception('排序的id不合法');
             }
 
             $where['menu_id'] = $menu_id;
@@ -107,11 +112,11 @@ use Think\Model;
          * 添加菜单
          * @param array $data 写入的数据
          * @return integer|boolean
-         * @throws \Think\Exception
+         * @throws Exception
          */
         public function menuAdd($data) {
             if(empty($data)) {
-                throw new \Think\Exception('菜单数据为空');
+                throw new Exception('菜单数据为空');
             }
 
             $data['m'] = ucfirst(strtolower($data['m']));
@@ -125,14 +130,15 @@ use Think\Model;
          * @param integer $menu_id 菜单id
          * @param array $menuData 菜单数据
          * @return integer|boolean
-         * @throws \Think\Exception
+         * @throws Exception
          */
         public function updateMenu($menu_id,$menuData) {
+            // 检查数据
             if(empty($menu_id) || !is_numeric($menu_id)) {
-                throw new \Think\Exception('数据不合法');
+                throw new Exception('数据不合法');
             }
             if(empty($menuData) || !is_array($menuData)) {
-                throw new \Think\Exception('数据不合法');
+                throw new Exception('数据不合法');
             }
 
             $where['menu_id'] = intval($menu_id);

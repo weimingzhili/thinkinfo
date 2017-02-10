@@ -1,9 +1,10 @@
 <?php
+
 namespace Admin\Model;
 
-use Think\Exception;
-
 use Think\Model;
+
+use Think\Exception;
 
 /**
  * 文章内容处理
@@ -24,13 +25,15 @@ use Think\Model;
          * @throws Exception
          */
         public function contentAdd($article_id,$content) {
+            // 检查数据
             if(!isset($article_id) || !is_numeric($article_id)) {
-                throw new \Think\Exception('操作异常');
+                throw new Exception('操作异常');
             }
             if(!isset($content) || !is_string($content)) {
-                throw new \Think\Exception('操作异常');
+                throw new Exception('操作异常');
             }
 
+            // 过滤数据
             $data['article_id'] = $article_id;
             $data['content'] = htmlspecialchars($content);
 
@@ -60,12 +63,11 @@ use Think\Model;
          */
         public function updateContent($id,$content) {
             if(isset($id,$content) && is_numeric($id)) {
-                return 1;
                 $where['article_id'] = intval($id);
                 $content = htmlspecialchars($content);
                 return $this->_db->where($where)->setField('content',$content);
             }
 
-            throw new \Think\Exception('文章内容不合法！');
+            throw new Exception('文章内容不合法！');
         }
     }

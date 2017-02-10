@@ -1,9 +1,10 @@
 <?php
+
 namespace Admin\Model;
 
-use Think\Exception;
-
 use Think\Model;
+
+use Think\Exception;
 
 /**
  * 文章操作
@@ -47,11 +48,12 @@ use Think\Model;
          * @throws \Think\Exception
          */
         public function listOrder($article_id,$list_id) {
+            // 检查数据
             if(!isset($article_id) || !is_numeric($article_id)) {
-                throw new \Think\Exception('操作失败');
+                throw new Exception('操作失败');
             }
             if(!isset($list_id) || !is_numeric($list_id)) {
-                throw new \Think\Exception('操作失败');
+                throw new Exception('操作失败');
             }
 
             $where['article_id'] = intval($article_id);
@@ -90,9 +92,11 @@ use Think\Model;
          * @throws \Think\Exception
          */
         public function articleAdd($data) {
+            // 检查数据
             if(!isset($data) || !is_array($data)) {
-                throw new \Think\Exception('操作异常');
+                throw new Exception('操作异常');
             }
+
             $data['create_time'] = time();
             return $this->_db->add($data);
         }
@@ -139,7 +143,7 @@ use Think\Model;
                 return $this->_db->where($where)->save($data);
             }
 
-            throw new \Think\Exception('文章数据不合法');
+            throw new Exception('文章数据不合法');
         }
 
         /**
@@ -156,7 +160,7 @@ use Think\Model;
                 return $this->_db->where($where)->setField('status',$status);
             }
 
-            throw new \Think\Exception('更改文章状态数据不合法');
+            throw new Exception('更改文章状态数据不合法');
         }
 
         /**
@@ -167,6 +171,7 @@ use Think\Model;
          * @throws Exception
          */
         public function update($id,$data,$column='count') {
+            // 检查数据
             if(isset($id,$data) && is_numeric($id)) {
                 if(is_numeric($data)) {
                     $where['article_id'] = intval($id);
@@ -188,7 +193,7 @@ use Think\Model;
 
         /**
          * 获取文章总数
-         * @return integer 返回有效文章总数
+         * @return integer
          */
         public function getTotal() {
             return $this->_db->where(['status' => 1])->count();

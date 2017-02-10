@@ -1,14 +1,15 @@
 <?php
-namespace Admin\Model;
 
-use Think\Exception;
+namespace Admin\Model;
 
 use Think\Model;
 
 use Think\Page;
 
+use Think\Exception;
+
 /**
- * 管理员操作
+ * 管理员模型
  * @author WeiZeng <weimingzhili@gmail.com>
  */
     class AdminModel extends Model {
@@ -130,7 +131,7 @@ use Think\Page;
         }
 
         /**
-         * 获取有效管理员总数
+         * 获取管理员总数
          * @return integer
          */
         public function getTotal()

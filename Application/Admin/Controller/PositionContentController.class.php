@@ -1,4 +1,5 @@
 <?php
+
 namespace Admin\Controller;
 
 use Think\Exception;
@@ -46,10 +47,12 @@ use Think\Exception;
          * @return array
          */
         public function order() {
+            // 获取数据
             $listArr = $_POST['listData'];
             if(!empty($listArr)) {
                 $url = $_SERVER['HTTP_REFERER'];
 
+                // 更新记录
                 try {
                     $result = D('PositionContent')->listOrder($listArr);
                     if($result) {
@@ -68,12 +71,15 @@ use Think\Exception;
          * @return array
          */
         public function add() {
-            if(!empty($_POST)) {
+            if(!empty($_POST)) { // 当POST数据不为空时，认为用户执行的是添加操作
+                // 检查数据
                 $positionContentModel = D('PositionContent');
                 $checkRes = $positionContentModel->positionContentCheck($_POST);
                 if($checkRes) {
                     $this->ajaxReturn($checkRes);
                 }
+
+                // 写入数据库
                 try {
                     $addRes = $positionContentModel->positionContentAdd($_POST);
                     if($addRes) {
@@ -84,7 +90,7 @@ use Think\Exception;
                 } catch(Exception $e) {
                     $this->ajaxReturn(array('status'=>0,'message'=>$e->getMessage()));
                 }
-            } else {
+            } else { // 输出添加页面
                 $positions = D('Position')->getPosition(array('status'=>1));
                 $this->assign('positions',$positions);
                 $this->display();
@@ -97,7 +103,7 @@ use Think\Exception;
          * @return array
          */
         public function edit() {
-            if(!empty($_POST['posc_id'])) {
+            if(!empty($_POST['posc_id'])) { // 当POST数据存在posc_id时，认为用户执行的是保存操作
                 $posc_id = $_POST['posc_id'];
                 $poscModel = D('PositionContent');
 
@@ -116,7 +122,7 @@ use Think\Exception;
                 } catch(Exception $e) {
                     $this->ajaxReturn(array('status'=>0,'message'=>$e->getMessage()));
                 }
-            } else {
+            } else { // 输出推荐位内容编辑页面
                 $posc_id = $_GET['id'];
                 if(!empty($posc_id)) {
                     $posc = D('PositionContent')->getPositionContent($posc_id);

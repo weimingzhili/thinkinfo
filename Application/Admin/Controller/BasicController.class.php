@@ -1,4 +1,5 @@
 <?php
+
 namespace Admin\Controller;
 
 /**
@@ -10,6 +11,7 @@ namespace Admin\Controller;
          * 输出页面
          */
         public function index() {
+            // 获取配置数据并显示
             $config = D('Basic')->getConfig();
             $this->assign('config',$config);
             $this->display();
@@ -21,12 +23,14 @@ namespace Admin\Controller;
          */
         public function save() {
             if(!empty($_POST)) {
+                // 检查配置数据
                 $basicModel = D('Basic');
                 $checkRes = $basicModel->configCheck($_POST);
                 if($checkRes) {
                     $this->ajaxReturn(array('status'=>0,'message'=>'数据异常！'));
                 }
 
+                // 保存配置
                 $result = $basicModel->configSave($_POST);
                 if($result) {
                     $this->ajaxReturn(array('status'=>0,'message'=>'配置失败！'));

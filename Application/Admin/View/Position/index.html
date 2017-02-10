@@ -1,85 +1,87 @@
 <include file="Index/header" />
+
 <body>
 <div id="wrapper">
 
-    <include file="Index/nav"/>
-<div id="page-wrapper">
+  <include file="Index/nav"/>
+
+  <div id="page-wrapper">
 
     <div class="container-fluid" >
 
-        <!-- Page Heading -->
-        <div class="row">
-            <div class="col-lg-12">
-                <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i>  <a href="/Admin/Position/index">推荐位管理</a>
-                    </li>
-                    <li class="active">
-                        <i class="fa fa-table"></i>推荐位列表
-                    </li>
-                </ol>
-            </div>
+      <!-- Page Heading -->
+      <div class="row">
+        <div class="col-lg-12">
+          <ol class="breadcrumb">
+            <li>
+              <i class="fa fa-dashboard"></i>  <a href="/Admin/Position/index">推荐位管理</a>
+            </li>
+            <li class="active">
+              <i class="fa fa-table"></i>推荐位列表
+            </li>
+          </ol>
         </div>
-        <!-- /.row -->
+      </div>
+      <!-- /.row -->
 
-        <div >
-          <!-- 推荐位添加按钮 -->
-            <button  id="position-list-add" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-plus"></span> 添加</button>
+      <div >
+        <!-- 推荐位添加按钮 -->
+        <button  id="position-list-add" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-plus"></span> 添加</button>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6">
+          <h3></h3>
+          <div class="table-responsive">
+            <!-- 推荐位列表表单 -->
+            <form id="position-list-form">
+              <!-- 推荐位列表 -->
+              <table class="table table-bordered table-hover position-list-table">
+                <tr>
+                  <th>id</th>
+                  <th>推荐位名称</th>
+                  <th>描述</th>
+                  <th>创建时间</th>
+                  <th>更新时间</th>
+                  <th>状态</th>
+                  <th>操作</th>
+                </tr>
+                <volist name="list" id="position">
+                  <tr>
+                    <td>{$position['pos_id']}</td><!-- 推荐位id -->
+                    <td>{$position['pos_name']}</td><!-- 推荐位名称 -->
+                    <td>{$position['description']}</td><!-- 推荐位描述 -->
+                    <td>{$position['create_time']|checkTime}</td><!-- 创建时间 -->
+                    <td>{$position['update_time']|checkTime}</td><!-- 更新时间 -->
+                    <td>{$position['status']|getStatus}</td><!-- 状态 -->
+                    <!-- 操作 -->
+                    <td>
+                      <!-- 编辑推荐位 -->
+                      <a href="{:U('/Admin/Position/edit?id='.$position['pos_id'])}" title="编辑推荐位"><span class="glyphicon glyphicon-edit" id="position-edit"></span></a>
+                      <!-- 开启/关闭推荐位 -->
+                      <a href="javascript:void(0)" id="position-on-off" title="开启/关闭推荐位" attr-status="{$position['status']}" attr-id="{$position['pos_id']}"><span class="glyphicon glyphicon-off"></span></a>
+                      <!-- 删除推荐位 -->
+                      <a href="javascript:void(0)" id="position-delete"  attr-id="{$position['pos_id']}" title="删除推荐位"><span class="glyphicon glyphicon-remove-circle"></span></a>
+                    </td>
+                  </tr>
+                </volist>
+              </table>
+            </form>
+          </div>
         </div>
 
-        <div class="row">
-            <div class="col-lg-6">
-                <h3></h3>
-                <div class="table-responsive">
-                  <!-- 推荐位列表表单 -->
-                    <form id="position-list-form">
-                      <!-- 推荐位列表 -->
-                    <table class="table table-bordered table-hover position-list-table">
-                        <tr>
-                            <th>id</th>
-                            <th>推荐位名称</th>
-                            <th>描述</th>
-                            <th>创建时间</th>
-                            <th>更新时间</th>
-                            <th>状态</th>
-                            <th>操作</th>
-                        </tr>
-                          <volist name="list" id="position">
-                          <tr>
-                            <td>{$position['pos_id']}</td><!-- 推荐位id -->
-                            <td>{$position['pos_name']}</td><!-- 推荐位名称 -->
-                            <td>{$position['description']}</td><!-- 推荐位描述 -->
-                            <td>{$position['create_time']|checkTime}</td><!-- 创建时间 -->
-                            <td>{$position['update_time']|checkTime}</td><!-- 更新时间 -->
-                            <td>{$position['status']|getStatus}</td><!-- 状态 -->
-                            <!-- 操作 -->
-                            <td>
-                              <!-- 编辑推荐位 -->
-                              <a href="{:U('/Admin/Position/edit?id='.$position['pos_id'])}" title="编辑推荐位"><span class="glyphicon glyphicon-edit" id="position-edit"></span></a>
-                              <!-- 开启/关闭推荐位 -->
-                              <a href="javascript:void(0)" id="position-on-off" title="开启/关闭推荐位" attr-status="{$position['status']}" attr-id="{$position['pos_id']}"><span class="glyphicon glyphicon-off"></span></a>
-                              <!-- 删除推荐位 -->
-                              <a href="javascript:void(0)" id="position-delete"  attr-id="{$position['pos_id']}" title="删除推荐位"><span class="glyphicon glyphicon-remove-circle"></span></a>
-                            </td>
-                          </tr>
-                        </volist>
-                    </table>
-                    </form>
-                </div>
-            </div>
-
-        </div>
-        <!-- /.row -->
+      </div>
+      <!-- /.row -->
       <!-- 分页导航 -->
-          <nav class="page">
-            {$nav}
-          </nav>
+      <nav class="page">
+        {$nav}
+      </nav>
 
     </div>
     <!-- /.container-fluid -->
 
-</div>
-<!-- /#page-wrapper -->
+  </div>
+  <!-- /#page-wrapper -->
 
 </div>
 <!-- /#wrapper -->
